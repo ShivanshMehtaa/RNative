@@ -1,41 +1,22 @@
-import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import UserData from "./components/Userdata";
 
 export default function App() {
 
-  let data = 10;
-
-  const fruit1 =(obj)=>{
-    console.warn("this is a "+obj);
+  const [name,setName] = useState("Shivansh");
+  const change =() =>{
+    setName('hannu hehe');
   }
-  const fruit2 =()=>{
-    let data =20;
-    console.warn(data);
-  }
-
-
   return (
     <View style={styles.container}>
-      <Text style={{fontSize:20}} >Button and onPress Events</Text>
-      <Text style={{fontSize:20}} >{data}</Text>
-      <Button onPress={fruit1(24)} title="On Press Events" color={'black'} ></Button>
-      <Button onPress={fruit2} title="On Press Events" color={'green'} ></Button>
-      <StatusBar  style="auto"></StatusBar>
+      <Text style={{fontSize:20}}>State in react native</Text>
+      <Text style={{fontSize:20}}>{name}</Text>
+      <Button title="Update name" onPress={change}></Button>
     </View>
   );
 }
 
-// const UserDatas = () => {
-//   return (
-//     <View>
-//       <Text style={styles.text}>
-//         Information - {age}, {name}
-//       </Text>
-//       <Text style={styles.text}>Email - {email}</Text>
-//     </View>
-//   );
-// };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
