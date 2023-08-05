@@ -9,6 +9,7 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [secPass, setSecPass] = useState(true);
 
   const [display, setDisplay] = useState(false);
 
@@ -34,10 +35,12 @@ export default function App() {
       <TextInput
         placeholder="Enter Password"
         style={styles.textInput}
-        secureTextEntry={true}
+        secureTextEntry={secPass}
         value={password}
         onChangeText={(text) => setPassword(text)}
       />
+              <Button title="show password" onPress={()=>setSecPass(false)}/>
+
       <TextInput
         placeholder="Enter E-Mail"
         style={styles.textInput}
