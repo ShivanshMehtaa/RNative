@@ -1,42 +1,29 @@
-import { useEffect, useState } from "react";
 import {
+  Button,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View,
-  Button, 
-  TextInput,
-  FlatList,
-  SectionList,
 } from "react-native";
 
 export default function App() {
 
-  const [show, setShow] = useState(true);
 
   return (
-    <View style={{ padding: 10 }}>
+    <View style={styles.main}>
       <Text style={{ fontSize: 30, marginTop: 50, marginBottom: 20, textAlign: "center" }}>
-        Show Hide Component
+        Touchable highlight in Rnative
       </Text>
-      {
-        show == true ? <Button title='Hide Component' onPress={()=>setShow(false)}></Button> 
-        :      <Button title='Show Component' onPress={()=>setShow(true)}></Button>
-
-      }
-      {
-        show == true ? <User/> : null
-      }
-
-      
-
-    </View>
-  );
-}
-
-const User = () =>{
-  return(
-    <View>
-      <Text style={{fontSize:20, color:'green'}}>UserComponent</Text>
+      <TouchableHighlight>
+        <Text style={styles.button}>Button</Text>
+      </TouchableHighlight>
+      {/* <View style={styles.box1}>
+        <View style = {styles.boxIn1}></View>
+        <View style = {styles.boxIn1}></View>
+        <View style = {styles.boxIn1}></View>
+      </View>
+      <View style={styles.box2}></View>
+      <View style={styles.box3}></View> */}
     </View>
   )
 }
@@ -44,25 +31,40 @@ const User = () =>{
 
 
 const styles = StyleSheet.create({
-  view: {
-    flex: 1,
-    flexDirection: 'row',
-    borderColor: 'blue',
-    borderWidth: 5,
-    marginBottom: 10,
-    padding: 10,
+  main:{
+    flex:1,
+    padding:10,
+    // flexDirection:'row'
   },
-  text: {
-    flex: 1,
-    fontSize: 25,
-    backgroundColor: "red",
-    color: "white",
-    margin: 10,
-    padding: 10,
-    width: 100,
-    height: 100,
-    textAlignVertical: "center",
-    textAlign: "center",
-    borderRadius: 20,
-  },
+  button:{
+    backgroundColor:'#bbb',
+    color:'#fff',
+    fontSize:20,
+    textAlign:'center',
+    padding:10,
+    margin:10,
+    borderRadius:10,
+    shadowColor:'red',
+    elevation:10,
+    shadowOpacity:1,
+  }
+  // box1:{
+  //   flex:2, 
+  //   backgroundColor:'red',
+  //   flexDirection:'row'
+  // },
+  // box2:{
+  //   flex:1, 
+  //   backgroundColor:'blue',
+  // },
+  // box3:{
+  //   flex:1, 
+  //   backgroundColor:'green',
+  // },
+  // boxIn1:{
+  //   flex:1,
+  //   backgroundColor:'skyblue',
+  //   margin:10,
+  //   // flexDirection:'row'
+  // }
 });
