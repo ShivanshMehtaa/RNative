@@ -1,71 +1,47 @@
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
+  Button, 
   TextInput,
   FlatList,
   SectionList,
 } from "react-native";
 
 export default function App() {
-  const users = [
-    {
-      id: 1,
-      name: "Shivansh",
-      email: 'test@abc.com',
-      data: ['PHP', 'React', 'Angular']
-    },
-    {
-      id: 2,
-      name: "Hannu",
-      email: 'test@abc.com',
-      data: ['PHP', 'Test', 'Native']
-    },
-    {
-      id: 3,
-      name: "Sample",
-      email: 'test@abc.com',
-      data: ['PHP', 'Python', 'CPP']
-    },
-    {
-      id: 4,
-      name: "Sample1",
-      email: 'test@abc.com',
-      data: ['Java', 'NODE', 'MONGO']
-    }
-  ];
+
+  const [show, setShow] = useState(true);
 
   return (
     <View style={{ padding: 10 }}>
       <Text style={{ fontSize: 30, marginTop: 50, marginBottom: 20, textAlign: "center" }}>
-        Section List in R-Native
+        Show Hide Component
       </Text>
-      <SectionList
-        sections={users}
-        renderItem={({ item }) =>
-          <Text style={styles.text}>{item}</Text>
-        }
-        renderSectionHeader={({ section: { name } }) =>(
-          <Text style={styles.text}>{name}:-</Text>
-        )
-          
-        }
-      />
+      {
+        show == true ? <Button title='Hide Component' onPress={()=>setShow(false)}></Button> 
+        :      <Button title='Show Component' onPress={()=>setShow(true)}></Button>
+
+      }
+      {
+        show == true ? <User/> : null
+      }
+
+      
 
     </View>
   );
 }
 
-const UserData = (props) => {
-  const vari = props.item
-  return (
-    <View style={styles.view}>
-      <Text style={styles.text}>{vari.name}</Text>
-      <Text style={styles.text}>{vari.email}</Text>
+const User = () =>{
+  return(
+    <View>
+      <Text style={{fontSize:20, color:'green'}}>UserComponent</Text>
     </View>
   )
 }
+
+
 
 const styles = StyleSheet.create({
   view: {
