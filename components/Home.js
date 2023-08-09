@@ -7,10 +7,16 @@ import {
 } from "react-native";
 
 const Home = (props) => {
+    // console.warn(props.route.params)
+    const {name,age,email} =props.route.params;
     return (
         <View style={styles.main}>
             <Text style={{ fontSize: 20 }}>Home Screen</Text>
             <Button title="login" onPress={() => props.navigation.navigate("Login")} />
+            <Text style={{ fontSize: 20 }}>Name:{name}</Text>
+            <Text style={{ fontSize: 20 }}>Age:{age}</Text>
+            <Text style={{ fontSize: 20 }}>Email:{email}</Text>
+
         </View>
     )
 }
