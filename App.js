@@ -1,39 +1,40 @@
-import { StatusBar } from "expo-status-bar";
 import {
   Button,
-  Modal,
   StyleSheet,
   Text,
   View,
-  Platform
 } from "react-native";
 
-import {WebView} from "react-native-webview";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export default function App() {
 
+  const Stack = createNativeStackNavigator()
 
   return (
-    <View style={styles.main}>
-      <StatusBar
-        backgroundColor="orange"
-        barStyle="default" 
-        hidden={true}
-      />
-      <Text style={{ fontSize: 30, marginTop: 50, marginBottom: 20, textAlign: "center" }}>
-        Platform :{Platform.OS}
-      </Text>
-      <Text>{JSON.stringify(Platform.constants.reactNativeVersion.major)}</Text>
-      {
-        Platform.OS === 'android' ? 
-        <Text>Hi android User, How are You</Text>
-        :
-        <Text>Hi IOS User, How are You</Text>
-      }
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
-      <WebView source={{uri:"https://reactnative.dev"}}></WebView>
-      
-      
+const Home = (props) => {
+  return (
+    <View style={styles.main}>
+      <Text style={{ fontSize: 20 }}>Home Screen</Text>
+      <Button title="login" onPress={()=>props.navigation.navigate("Login")}/>
+    </View>
+  )
+}
+const Login = (props) => {
+  return (
+    <View style={styles.main}>
+      <Text style={{ fontSize: 20 }}>Login Screen</Text>
+      <Button title="home" onPress={()=>props.navigation.navigate("Home")}/>
     </View>
   )
 }
@@ -41,23 +42,23 @@ export default function App() {
 
 
 const styles = StyleSheet.create({
-  main:{
-    flex:1,
-    padding:10,
-    alignItems:'center',
-    justifyContent:'center',
+  main: {
+    flex: 1,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  button:{
-    backgroundColor:'#bbb',
-    color:'#fff',
-    fontSize:20,
-    textAlign:'center',
-    padding:10,
-    margin:10,
-    borderRadius:10,
-    shadowColor:'red',
-    elevation:10,
-    shadowOpacity:1,
+  button: {
+    backgroundColor: '#bbb',
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'center',
+    padding: 10,
+    margin: 10,
+    borderRadius: 10,
+    shadowColor: 'red',
+    elevation: 10,
+    shadowOpacity: 1,
   }
 
 });
