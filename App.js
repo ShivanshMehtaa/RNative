@@ -5,57 +5,43 @@ import {
   TextInput,
   View,
 } from "react-native";
-
-import Home from "./components/Home";
-import Login from "./components/Login";
-import HeaderRightComp from "./components/HeaderRight";
-
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+
+
 import { AntDesign } from '@expo/vector-icons';
 
 export default function App() {
 
-  const Stack = createNativeStackNavigator()
 
-  const leftButton = () =>{
-    console.warn("left button press")
-  }
-
+  const Tab = createBottomTabNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{
-          headerStyle:{
-            backgroundColor:'red',
-          },
-          headerTintColor:'white',
-          headerTitleStyle:{
-            fontSize:30
-          }
-        }}>
-        <Stack.Screen name="Login" component={Login}  options={{
-          headerTitle:(props)=><AntDesign name="stepforward" onPress={leftButton} size={30} color="white" />,
-          headerRight:(props)=><HeaderRightComp/>,
-          title: "User Login",
-          headerTintColor:'white',
-          headerTitleStyle:{
-            fontSize:30
-          }
-        }}/>
-        <Stack.Screen name="Home" component={Home} options={{
-          title: "Home",
-          headerStyle:{
-            backgroundColor:'blue',
-          },
-          headerTintColor:'white',
-          headerTitleStyle:{
-            fontSize:30
-          }
-        }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+   <NavigationContainer>
+    <Tab.Navigator>
+      <Tab.Screen name="login" component ={Login} />
+      <Tab.Screen name="signup" component ={SignUp} />
+    </Tab.Navigator>
+   </NavigationContainer>
   )
 }
+
+const Login= ()=>{
+  return(
+    <View>
+      <Text>Login</Text>
+    </View>
+  )
+}
+const SignUp= ()=>{
+  return(
+    <View>
+      <Text>SignUp</Text>
+    </View>
+  )
+}
+
+
 
 const styles = StyleSheet.create({
   main: {
