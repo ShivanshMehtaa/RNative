@@ -2,15 +2,25 @@ import {
   Button,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 
+import Home from "./components/Home";
+import Login from "./components/Login";
+import HeaderRightComp from "./components/HeaderRight";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { AntDesign } from '@expo/vector-icons';
 
 export default function App() {
 
   const Stack = createNativeStackNavigator()
+
+  const leftButton = () =>{
+    console.warn("left button press")
+  }
 
   return (
     <NavigationContainer>
@@ -23,8 +33,17 @@ export default function App() {
             fontSize:30
           }
         }}>
-        <Stack.Screen name="Login" component={Login}  />
+        <Stack.Screen name="Login" component={Login}  options={{
+          headerTitle:(props)=><AntDesign name="stepforward" onPress={leftButton} size={30} color="white" />,
+          headerRight:(props)=><HeaderRightComp/>,
+          title: "User Login",
+          headerTintColor:'white',
+          headerTitleStyle:{
+            fontSize:30
+          }
+        }}/>
         <Stack.Screen name="Home" component={Home} options={{
+          title: "Home",
           headerStyle:{
             backgroundColor:'blue',
           },
@@ -37,25 +56,6 @@ export default function App() {
     </NavigationContainer>
   )
 }
-
-const Home = (props) => {
-  return (
-    <View style={styles.main}>
-      <Text style={{ fontSize: 20 }}>Home Screen</Text>
-      <Button title="login" onPress={()=>props.navigation.navigate("Login")}/>
-    </View>
-  )
-}
-const Login = (props) => {
-  return (
-    <View style={styles.main}>
-      <Text style={{ fontSize: 20 }}>Login Screen</Text>
-      <Button title="home" onPress={()=>props.navigation.navigate("Home")}/>
-    </View>
-  )
-}
-
-
 
 const styles = StyleSheet.create({
   main: {
@@ -76,5 +76,4 @@ const styles = StyleSheet.create({
     elevation: 10,
     shadowOpacity: 1,
   }
-
 });
