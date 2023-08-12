@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View, } from "react-native";
+import { Button, ScrollView, StyleSheet, Text, TextInput, View, } from "react-native";
 
 export default function App() {
 
-  const [data, setData] = useState(' ');
+  const [data, setData] = useState([]);
 
   async function getAPIdata() {
-    //iss function ko use Effect mei call karenge
-    // this is an async function
-    const url = "https://jsonplaceholder.typicode.com/posts/1"
+    const url = "https://jsonplaceholder.typicode.com/posts"
     let result = await fetch(url);
     result = await result.json();
-
+   
     setData(result);
-
   }
 
   useEffect(() => {
@@ -21,18 +18,20 @@ export default function App() {
   }, [])
 
   return (
-    <View style={styles.main}>
+    <ScrollView style={styles.main}>
       <Text style={{ fontSize: 30 }}>API CALL</Text>
       {
-        data ? 
-        <View>
-          <Text style={{ fontSize: 25,margin:4 }}>hello</Text>
-          <Text style={{ fontSize: 25,margin:4  }}>{data.id}</Text>
-          <Text style={{ fontSize: 25,margin:4  }}>{data.title}</Text>
-          <Text style={{ fontSize: 25,margin:4  }}>{data.body}</Text>
-        </View> : null
-      }
-    </View>
+        data.length ?
+        data.map((item)=>(
+          <View style={{margin:5, borderColor:'red', borderBottomWidth:2, borderRadius:10}}>
+            <Text style={{fontSize:20, backgroundColor:"#ddd"}}>ID: {item.id}</Text>
+            <Text style={{fontSize:20}}>Title: {item.title}</Text>
+            <Text style={{fontSize:20}}>Body: {item.body}</Text>
+          </View>
+        ))
+        : null
+      }      
+    </ScrollView>
   )
 }
 
@@ -41,7 +40,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginTop:40,
-    alignItems: 'center',
   },
   button: {
     backgroundColor: '#bbb',
