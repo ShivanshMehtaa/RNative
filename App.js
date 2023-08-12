@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, ScrollView, StyleSheet, Text, TextInput, View, } from "react-native";
+import { Button, FlatList, ScrollView, StyleSheet, Text, TextInput, View, } from "react-native";
 
 export default function App() {
 
@@ -18,20 +18,21 @@ export default function App() {
   }, [])
 
   return (
-    <ScrollView style={styles.main}>
+    <View style={styles.main}>
       <Text style={{ fontSize: 30 }}>API CALL</Text>
       {
         data.length ?
-        data.map((item)=>(
-          <View style={{margin:5, borderColor:'red', borderBottomWidth:2, borderRadius:10}}>
-            <Text style={{fontSize:20, backgroundColor:"#ddd"}}>ID: {item.id}</Text>
-            <Text style={{fontSize:20}}>Title: {item.title}</Text>
-            <Text style={{fontSize:20}}>Body: {item.body}</Text>
-          </View>
-        ))
+        <FlatList
+          data={data}
+          renderItem={({item})=>
+          <View>
+            <Text style={{ fontSize: 25}}>ID: {item.id}</Text>
+          </View>  
+        }
+        ></FlatList>
         : null
       }      
-    </ScrollView>
+    </View>
   )
 }
 
