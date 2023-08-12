@@ -1,54 +1,47 @@
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-
-
-import { AntDesign } from '@expo/vector-icons';
+import { useEffect, useState } from "react";
+import { Button, StyleSheet, Text, TextInput, View, } from "react-native";
 
 export default function App() {
 
+  const [data, setData] = useState(' ');
 
-  const Tab = createBottomTabNavigator();
+  async function getAPIdata() {
+    //iss function ko use Effect mei call karenge
+    // this is an async function
+    const url = "https://jsonplaceholder.typicode.com/posts/1"
+    let result = await fetch(url);
+    result = await result.json();
+
+    setData(result);
+
+  }
+
+  useEffect(() => {
+    getAPIdata();
+  }, [])
+
   return (
-   <NavigationContainer>
-    <Tab.Navigator>
-      <Tab.Screen name="login" component ={Login} />
-      <Tab.Screen name="signup" component ={SignUp} />
-    </Tab.Navigator>
-   </NavigationContainer>
-  )
-}
-
-const Login= ()=>{
-  return(
-    <View>
-      <Text>Login</Text>
+    <View style={styles.main}>
+      <Text style={{ fontSize: 30 }}>API CALL</Text>
+      {
+        data ? 
+        <View>
+          <Text style={{ fontSize: 25,margin:4 }}>hello</Text>
+          <Text style={{ fontSize: 25,margin:4  }}>{data.id}</Text>
+          <Text style={{ fontSize: 25,margin:4  }}>{data.title}</Text>
+          <Text style={{ fontSize: 25,margin:4  }}>{data.body}</Text>
+        </View> : null
+      }
     </View>
   )
 }
-const SignUp= ()=>{
-  return(
-    <View>
-      <Text>SignUp</Text>
-    </View>
-  )
-}
-
-
 
 const styles = StyleSheet.create({
   main: {
     flex: 1,
     padding: 10,
+    marginTop:40,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   button: {
     backgroundColor: '#bbb',
