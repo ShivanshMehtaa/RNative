@@ -3,38 +3,38 @@ import { Button, FlatList, ScrollView, StyleSheet, Text, TextInput, View, } from
 
 export default function App() {
 
-  const [data, setData] = useState([]);
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [email, setEmail] = useState('');
 
-  async function getAPIdata() {
-    const url = "http://192.168.1.4:3000/users"
-    let result = await fetch(url);
+  async function saveAPIdata() {
+    console.warn(name, age, email)
+    const url = "http://10.0.2.2:3000/users"
+    let result = await fetch(url,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      // body:JSON.stringify({name:name,age:age,email:email})
+      body:JSON.stringify({name,age,email})
+
+    });
     result = await result.json();
-   
-    setData(result);
+    if(result){
+      alert("data stored")
+    }
+    setAge(' ')
+    setEmail(" ")
+    setAge(' ')
   }
-
-  useEffect(() => {
-    getAPIdata();
-  }, [])
 
   return (
     <View style={styles.main}>
-      <Text style={{ fontSize: 30,marginBottom:10 }}>API CALL</Text>
-      {
-        data.length ?
-        <FlatList
-          data={data}
-          renderItem={({item})=>
-          <View style={{margin:3 ,padding:3, borderBottomColor:"red", borderBottomWidth:3, borderRadius:5}}>
-            <Text style={{ fontSize: 25, backgroundColor:"#ddd"}}>ID: {item.id}</Text>
-            <Text style={{ fontSize: 25}}>Name: {item.name}</Text>
-            <Text style={{ fontSize: 25}}>Age: {item.age}</Text>
-            <Text style={{ fontSize: 25}}>Email: {item.email}</Text>
-          </View>  
-        }
-        ></FlatList>
-        : null
-      }      
+      <Text style={{ fontSize: 30, marginBottom: 10 }}>SAVE FORM DATA</Text>
+
+      <TextInput value={name} style={styles.input} onChangeText={(text) => setName(text)} placeholder="Enter Name" />
+      <TextInput value={age} style={styles.input} onChangeText={(text) => setAge(text)} placeholder="Enter Age" />
+      <TextInput value={email} style={styles.input} onChangeText={(text) => setEmail(text)} placeholder="Enter Email" />
+
+      <Button style={styles.button} title="Save data" onPress={saveAPIdata} />
     </View>
   )
 }
@@ -43,7 +43,17 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     padding: 10,
-    marginTop:40,
+    marginTop: 40,
+  },
+  input: {
+    backgroundColor: '#bbb',
+    borderWidth: 2,
+    borderColor: "black",
+    borderRadius: 6,
+    margin: 10,
+    textAlign: "center",
+    padding: 10,
+    fontSize: 20,
   },
   button: {
     backgroundColor: '#bbb',
