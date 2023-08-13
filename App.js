@@ -6,7 +6,7 @@ export default function App() {
   const [data, setData] = useState([]);
 
   async function getAPIdata() {
-    const url = "https://jsonplaceholder.typicode.com/posts"
+    const url = "http://192.168.1.4:3000/users"
     let result = await fetch(url);
     result = await result.json();
    
@@ -19,14 +19,17 @@ export default function App() {
 
   return (
     <View style={styles.main}>
-      <Text style={{ fontSize: 30 }}>API CALL</Text>
+      <Text style={{ fontSize: 30,marginBottom:10 }}>API CALL</Text>
       {
         data.length ?
         <FlatList
           data={data}
           renderItem={({item})=>
-          <View>
-            <Text style={{ fontSize: 25}}>ID: {item.id}</Text>
+          <View style={{margin:3 ,padding:3, borderBottomColor:"red", borderBottomWidth:3, borderRadius:5}}>
+            <Text style={{ fontSize: 25, backgroundColor:"#ddd"}}>ID: {item.id}</Text>
+            <Text style={{ fontSize: 25}}>Name: {item.name}</Text>
+            <Text style={{ fontSize: 25}}>Age: {item.age}</Text>
+            <Text style={{ fontSize: 25}}>Email: {item.email}</Text>
           </View>  
         }
         ></FlatList>

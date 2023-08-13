@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "name": "shubhi shukla",
+      "age": 20,
+      "email": "shubhi@gmail.com",
+      "id": 1
+    },
+    {
+      "name": "shivansh Mehta",
+      "age": 19,
+      "email": "test@gmail.com",
+      "id": 2
+    }
+  ]
+}
