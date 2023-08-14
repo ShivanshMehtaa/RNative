@@ -16,12 +16,6 @@
       "name": "Hannu",
       "age": 18,
       "email": "sample3@gmail.com",
-      "id": 3
-    },
-    {
-      "name": "Hannu",
-      "age": 18,
-      "email": "sample3@gmail.com",
       "id": 4
     },
     {
@@ -59,12 +53,6 @@
       "age": "dfdsfsd",
       "email": "fdf",
       "id": 10
-    },
-    {
-      "name": " ",
-      "age": " ",
-      "email": " ",
-      "id": 11
     },
     {
       "name": "nsndn",

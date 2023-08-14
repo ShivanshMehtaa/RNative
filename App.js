@@ -11,6 +11,7 @@ import {
 
 export default function App() {
   const [name, setName] = useState("");
+  const [data, setData] = useState([]);
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
 
@@ -18,117 +19,86 @@ export default function App() {
   const [ageError, setAgeError] = useState(false);
   const [emailError, setEmailError] = useState(false);
 
-  async function saveAPIdata() {
-    if (!name ) {
-      setNameError(true);
-    }
-    if (!age ) {
-      setAgeError(true);
-    }
-    if (!email ) {
-      setEmailError(true);
-    }
-    if (!name) {
-      return false;
-    }
-
-    console.warn("Next");
-
+  async function getAPIData() {
     const url = "http://10.0.2.2:3000/users";
-    let result = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, age, email }),
-    });
+    let result = await fetch(url);
     result = await result.json();
     if (result) {
-      alert("data stored");
+      setData(result);
     }
-    setName(" ");
-    setEmail(" ");
-    setAge(" ");
+  }
+  const deleteUser = async (id) =>{
+    const url = "http://10.0.2.2:3000/users";
+    // console.warn(`${url}/${id}`)
+
+    let result = await fetch(`${url}/${id}`,{
+      method:'delete'
+    });
+    result = await result.json();
+    if(result){
+      alert("User Deleted")
+    }
+
   }
 
+  useEffect(() => {
+    getAPIData();
+  }, [data]);
+
   return (
-    <View style={styles.main}>
-      <Text style={{ fontSize: 30, marginBottom: 10 }}>SAVE FORM DATA</Text>
-
-      <TextInput
-        value={name}
-        style={styles.input}
-        onChangeText={(text) => setName(text)}
-        placeholder="Enter Name"
-      />
-      {
-        nameError ? <View><Text style={{color:"red",
-        marginLeft:10,
-        fontSize:15,
-        fontWeight:500}}>Enter Name/Valid Name first</Text></View> : null
-      }
-      <TextInput
-        value={age}
-        keyboardType="numeric"
-        style={styles.input}
-        onChangeText={(text) => setAge(text)}
-        placeholder="Enter Age"
-      />
-      {
-        ageError ? <View><Text style={{color:"red",
-        marginLeft:10,
-        fontSize:15,
-        fontWeight:500}}>Enter Age/Valid Age first</Text></View> : null
-      }
-      <TextInput
-        value={email}
-        style={styles.input}
-        onChangeText={(text) => setEmail(text)}
-        placeholder="Enter Email"
-      />
-      {
-        emailError ? <View><Text style={{color:"red",
-        marginLeft:10,
-        marginBottom:10,
-        fontSize:15,
-        fontWeight:500}}>Enter Email/Valid Email first</Text></View> : null
-      }
-
-      <Button style={{margin:10}} title="Save data" onPress={saveAPIdata} />
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.dataWrapper}>
+        <View style={{flex:1.4}}>
+          <Text>Name</Text>
+        </View>
+        <View style={{flex:1.8}}>
+          <Text>Age</Text>
+        </View>
+        <View style={{flex:1}}>
+          <Text>Operations</Text>
+        </View>
+      </View>
+      {data.length
+        ? data.map((item) => (
+            <View style={styles.dataWrapper}>
+              <View style={styles.internal}>
+                <Text>{item.name}</Text>
+              </View>
+              <View style={{flex:0.6}}>
+                <Text>{item.age}</Text>
+              </View>
+              <View style={styles.internal}>
+                <Button onPress={()=>deleteUser(item.id)} title="delete" />
+              </View>
+              <View style={styles.internal}>
+                <Button title="update" />
+              </View>
+            </View>
+          ))
+        : null}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  main: {
+  container: {
     flex: 1,
-    padding: 10,
-    marginTop: 40,
+    marginTop: 50,
+    borderRadius: 10,
   },
-  input: {
-    backgroundColor: "#bbb",
-    borderWidth: 2,
-    borderColor: "black",
-    borderRadius: 6,
-    margin: 10,
-    textAlign: "center",
+  dataWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "orange",
+    borderRadius:10,
+    margin: 5,
     padding: 10,
-    fontSize: 20,
   },
-  errorText:{
-    color:"red",
-    marginLeft:10,
-    fontSize:15,
-    fontWeight:500,
+  internal: {
+    flex: 1,
+    margin:2,
   },
   button: {
-    backgroundColor: "#bbb",
-    color: "#fff",
-    fontSize: 20,
-    textAlign: "center",
-    padding: 10,
-    margin: 10,
-    borderRadius: 10,
-    shadowColor: "red",
-    elevation: 10,
-    shadowOpacity: 1,
+    marginRight: 3,
   },
 });
