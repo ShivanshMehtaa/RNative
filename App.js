@@ -1,87 +1,35 @@
-import { useEffect, useState,useRef } from "react";
-import {
-  Button,
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Modal
-} from "react-native";
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import HomeScreen from "./screens/HomeScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import SearchScreen from "./screens/SearchScreen";
+import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-
-  const input = useRef();
-
-  const updateButton = () =>{
-    console.warn('button cllick');
-    input.current.focus();
-    input.current.setNativeProps({
-      fontSize:24,
-      color:"red"
-    })
-  }
-
-
   return (
-    <ScrollView style={styles.container}>
-      <TextInput ref={input} style={styles.inpBox} placeholder="enter name"/>
-      <TextInput style={styles.inpBox}placeholder="enter password"/>
-      <Button onPress={updateButton} title="Update Input"/>
-
-    </ScrollView>
+    <NavigationContainer>
+      <Tab.Navigator screenOptions={{
+        tabBarActiveTintColor:'#3a86ff',
+      }}>
+        <Tab.Screen name="TechNews" component={HomeScreen} 
+        options={{
+          tabBarIcon:()=><Ionicons name="ios-home-outline" size={24} color="black" />
+        }}/>1
+        <Tab.Screen name="Search" component={SearchScreen} 
+          options={{
+            tabBarIcon:()=><Feather name="search" size={24} color="black" />
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: 50,
-    borderRadius: 10,
-    padding:10,
   },
-  dataWrapper: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    backgroundColor: "orange",
-    borderRadius:10,
-    margin: 5,
-    padding: 10,
-  },
-  dataWrapper2: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    backgroundColor: "skyblue",
-    borderRadius:10,
-    margin: 5,
-    padding: 10,
-  },
-  internal: {
-    flex: 1,
-    margin:2,
-  },
-  button: {
-    marginRight: 3,
-  },
-  modalStyle:{
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center'
-  },
-  modalView:{
-    backgroundColor:"#fff",
-    padding:30,
-    borderRadius:10,
-    shadowColor:'#000',
-    shadowOpacity:0.80,
-    elevation:5,  
-  },
-  inpBox:{
-    margin:10,
-    borderWidth:2,
-    borderRadius:5,
-    borderColor:'skyblue',
-    padding:5,
-  }
 });
